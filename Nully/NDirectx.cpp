@@ -181,9 +181,21 @@ namespace Nully
     //m_deviceContext->Draw(go.m_model.m_vertexBuffer.GetVertexCount(), 0);
     m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-    //go.m_transform.m_position = NVector3(0.0f, 0.0f, 0.0f);
-    //UpdateWorldViewProjectionMatrix(go);
-    //m_deviceContext->Draw(go.m_model.m_vertexBuffer.GetVertexCount(), 0);
+    go.m_transform.m_position = NVector3(0.0f, 0.0f, 0.0f);
+    UpdateWorldViewProjectionMatrix(go);
+    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+
+    go.m_transform.m_position = NVector3(0.0f, 2.5f, 0.0f);
+    UpdateWorldViewProjectionMatrix(go);
+    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+
+    go.m_transform.m_position = NVector3(3.0f, 2.5f, 0.0f);
+    UpdateWorldViewProjectionMatrix(go);
+    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+
+    go.m_transform.m_position = NVector3(2.0f, 2.5f, 2.0f);
+    UpdateWorldViewProjectionMatrix(go);
+    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
   }
   void NDirectx::EndDraw()
   {
