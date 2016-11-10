@@ -71,6 +71,9 @@
     <ClCompile Include="NShaderManager.cpp">
       <Filter>Source Files\Singleton</Filter>
     </ClCompile>
+    <ClCompile Include="NObj.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nully.h">
@@ -167,6 +170,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NWorldViewProjection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NObj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NObjFace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NObjDataType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

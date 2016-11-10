@@ -111,7 +111,8 @@ namespace Nully
     // set depthStencilState
     this->m_deviceContext->OMSetDepthStencilState(m_depthStencilState, 1);
 
-
+    //D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP
+      //D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP
     // Set topology
     m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
@@ -156,7 +157,7 @@ namespace Nully
   void NDirectx::Draw()
   {
     // Sort all GameObjects
-    NGameObject go(m_device);
+    static NGameObject go(m_device);
     go.m_material = NMaterial("myMaterial", NShaderType::Default);
     go.m_transform.m_position = NVector3(1.0f, 0.0f, 0.0f);
     go.m_transform.m_rotation = NVector3(0.0f, 0.0f, 0.0f);
@@ -177,12 +178,12 @@ namespace Nully
     UINT offset = 0;
     m_deviceContext->IASetVertexBuffers(0, 1, &buf, &stride, &offset);
 
-    m_deviceContext->Draw(go.m_model.m_vertexBuffer.GetVertexCount(), 0);
+    //m_deviceContext->Draw(go.m_model.m_vertexBuffer.GetVertexCount(), 0);
+    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-
-    go.m_transform.m_position = NVector3(0.0f, 0.0f, 0.0f);
-    UpdateWorldViewProjectionMatrix(go);
-    m_deviceContext->Draw(go.m_model.m_vertexBuffer.GetVertexCount(), 0);
+    //go.m_transform.m_position = NVector3(0.0f, 0.0f, 0.0f);
+    //UpdateWorldViewProjectionMatrix(go);
+    //m_deviceContext->Draw(go.m_model.m_vertexBuffer.GetVertexCount(), 0);
   }
   void NDirectx::EndDraw()
   {
@@ -247,11 +248,11 @@ namespace Nully
     // setup world matrix
     if (GetAsyncKeyState(VK_UP))
     {
-      m_camera.Move(NCameraMoveDirection::back);
+      m_camera.Move(NCameraMoveDirection::up);
     }
     if (GetAsyncKeyState(VK_DOWN))
     {
-      m_camera.Move(NCameraMoveDirection::forward);
+      m_camera.Move(NCameraMoveDirection::down);
     }
     if (GetAsyncKeyState(VK_LEFT))
     {
@@ -261,6 +262,15 @@ namespace Nully
     {
       m_camera.Move(NCameraMoveDirection::right);
     }
+    if (GetAsyncKeyState(VK_F1))
+    {
+      m_camera.Move(NCameraMoveDirection::forward);
+    }
+    if (GetAsyncKeyState(VK_F2))
+    {
+      m_camera.Move(NCameraMoveDirection::back);
+    }
+
 
     *((NWorldViewProjection*)subresource.pData) = dynamicBuffer;
 

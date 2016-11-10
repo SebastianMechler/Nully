@@ -3,7 +3,8 @@
 namespace Nully
 {
   NIndexBuffer::NIndexBuffer()
-    : m_indexBuffer(nullptr)
+    : m_indexBuffer(nullptr),
+      m_count(0)
   {
   }
 
@@ -14,9 +15,6 @@ namespace Nully
 
   bool NIndexBuffer::Create(ID3D11Device* a_device, nuint32 * a_indices, const nuint32 a_indicesCount)
   {
-    // Create indices.
-    //nuint32 indices[] = { 0, 1, 2 };
-
     // Fill in a buffer description.
     D3D11_BUFFER_DESC bufferDesc;
     bufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -37,12 +35,19 @@ namespace Nully
       return false;
     }
 
+    m_count = a_indicesCount;
+
     return true;
   }
 
   ID3D11Buffer * NIndexBuffer::GetBuffer() const
   {
     return m_indexBuffer;
+  }
+
+  nuint32 NIndexBuffer::GetCount() const
+  {
+    return m_count;
   }
 
 

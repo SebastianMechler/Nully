@@ -2,6 +2,7 @@
 
 #include "NVertexBuffer.h"
 #include "NIndexBuffer.h"
+#include "NObj.h"
 
 namespace Nully
 {

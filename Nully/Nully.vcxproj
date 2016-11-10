@@ -163,6 +163,7 @@
     <ClCompile Include="NIndexBuffer.cpp" />
     <ClCompile Include="NMaterial.cpp" />
     <ClCompile Include="NModel.cpp" />
+    <ClCompile Include="NObj.cpp" />
     <ClCompile Include="NScreen.cpp" />
     <ClCompile Include="NShader.cpp" />
     <ClCompile Include="NShaderManager.cpp" />
@@ -178,6 +179,9 @@
     <ClInclude Include="NCameraMoveDirection.h" />
     <ClInclude Include="NIndexBuffer.h" />
     <ClInclude Include="NModel.h" />
+    <ClInclude Include="NObj.h" />
+    <ClInclude Include="NObjDataType.h" />
+    <ClInclude Include="NObjFace.h" />
     <ClInclude Include="NScreen.h" />
     <ClInclude Include="NSingleton.h" />
     <ClInclude Include="NApplication.h" />

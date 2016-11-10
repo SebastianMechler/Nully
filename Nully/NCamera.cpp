@@ -9,7 +9,7 @@ namespace Nully
     // camera position
     m_position.m128_f32[0] = 0.0f;
     m_position.m128_f32[1] = 0.0f;
-    m_position.m128_f32[2] = 3.0f;
+    m_position.m128_f32[2] = 10.0f;
     m_position.m128_f32[3] = 0.0f;
 
     // camera focus
@@ -24,10 +24,8 @@ namespace Nully
     m_up.m128_f32[2] = 0.0f;
     m_up.m128_f32[3] = 0.0f;
 
-    
-
     m_view = DirectX::XMMatrixTranspose(DirectX::XMMatrixLookAtLH(m_position, m_focus, m_up));
-    m_projection = DirectX::XMMatrixTranspose(DirectX::XMMatrixPerspectiveFovLH(3.1415f * 0.25f, m_screenSize.width / m_screenSize.height, 0.01f, 100.0f));
+    m_projection = DirectX::XMMatrixTranspose(DirectX::XMMatrixPerspectiveFovLH(3.1415f * 0.25f, (float)(m_screenSize.width / m_screenSize.height), 0.01f, 100.0f));
 
     Update();
   }
@@ -37,26 +35,32 @@ namespace Nully
     {
     case NCameraMoveDirection::up:
       m_position.m128_f32[1] += m_speed;
+      m_focus.m128_f32[1] += m_speed;
       break;
 
     case NCameraMoveDirection::down:
       m_position.m128_f32[1] -= m_speed;
+      m_focus.m128_f32[1] -= m_speed;
       break;
 
     case NCameraMoveDirection::left:
-      m_position.m128_f32[0] -= m_speed;
+      m_position.m128_f32[0] += m_speed;
+      m_focus.m128_f32[0] += m_speed;
       break;
 
     case NCameraMoveDirection::right:
-      m_position.m128_f32[0] += m_speed;
+      m_position.m128_f32[0] -= m_speed;
+      m_focus.m128_f32[0] -= m_speed;
       break;
 
     case NCameraMoveDirection::back:
-      m_position.m128_f32[2] -= m_speed;
+      m_position.m128_f32[2] += m_speed;
+      m_focus.m128_f32[2] += m_speed;
       break;
 
     case NCameraMoveDirection::forward:
-      m_position.m128_f32[2] += m_speed;
+      m_position.m128_f32[2] -= m_speed;
+      m_focus.m128_f32[2] -= m_speed;
       break;
 
     default:
