@@ -21,10 +21,10 @@ namespace Nully
     nuint32 i = 0;
     for (auto face : faces)
     {
-      indices[i] = face.v1;
-      indices[i + 1] = face.v2;
-      indices[i + 2] = face.v3;
-      indices[i + 3] = face.v4;
+      indices[i] = face.v1--;
+      indices[i + 1] = face.v2--;
+      indices[i + 2] = face.v3--;
+      indices[i + 3] = face.v4--;
 
       //indices[i+3] = face.v2;
       //indices[i+4] = face.v3;

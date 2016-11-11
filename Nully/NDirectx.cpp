@@ -12,8 +12,9 @@ namespace Nully
       m_depthStencilState(nullptr),
       m_depthStencilView(nullptr),
       m_constantBuffer(nullptr),
+      m_rasterizerState(nullptr),
       m_blendState(nullptr),
-      m_camera(0.15f)
+      m_camera(0.015f)
   {
 
   }
@@ -30,6 +31,7 @@ namespace Nully
     NSafeRelease(m_depthStencilView);
     NSafeRelease(m_constantBuffer);
     NSafeRelease(m_blendState);
+    NSafeRelease(m_rasterizerState);
   }
   bool NDirectx::Initialize(const NGraphicsDesc & a_graphicsDesc)
   {
@@ -145,8 +147,28 @@ namespace Nully
     m_deviceContext->OMSetBlendState(m_blendState, nullptr, 0xffffffff);
 
 
-    // TODO: extract this to dynamic buffer
     CreateDynamicBuffer();
+
+    //
+    // RasterizerState
+    //
+    D3D11_RASTERIZER_DESC rsDesc = {};
+    rsDesc.FillMode = D3D11_FILL_SOLID;
+    rsDesc.CullMode = D3D11_CULL_NONE;
+    rsDesc.FrontCounterClockwise = TRUE;
+    rsDesc.DepthBias = 0;
+    rsDesc.DepthBiasClamp = 0;
+    rsDesc.SlopeScaledDepthBias = 0.0f;
+    rsDesc.DepthClipEnable = TRUE;
+    rsDesc.ScissorEnable = FALSE;
+    rsDesc.AntialiasedLineEnable = FALSE;
+    rsDesc.MultisampleEnable = FALSE;
+
+    if (NDirectXFailed(m_device->CreateRasterizerState(&rsDesc, &m_rasterizerState)))
+    {
+      return false;
+    }
+    m_deviceContext->RSSetState(m_rasterizerState);
 
     return true;
   }
@@ -183,19 +205,19 @@ namespace Nully
 
     go.m_transform.m_position = NVector3(0.0f, 0.0f, 0.0f);
     UpdateWorldViewProjectionMatrix(go);
-    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-    go.m_transform.m_position = NVector3(0.0f, 2.5f, 0.0f);
-    UpdateWorldViewProjectionMatrix(go);
-    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+go.m_transform.m_position = NVector3(0.0f, 2.5f, 0.0f);
+UpdateWorldViewProjectionMatrix(go);
+m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-    go.m_transform.m_position = NVector3(3.0f, 2.5f, 0.0f);
-    UpdateWorldViewProjectionMatrix(go);
-    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+go.m_transform.m_position = NVector3(3.0f, 2.5f, 0.0f);
+UpdateWorldViewProjectionMatrix(go);
+m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-    go.m_transform.m_position = NVector3(2.0f, 2.5f, 2.0f);
-    UpdateWorldViewProjectionMatrix(go);
-    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+go.m_transform.m_position = NVector3(2.0f, 2.5f, 2.0f);
+UpdateWorldViewProjectionMatrix(go);
+m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
   }
   void NDirectx::EndDraw()
   {
@@ -212,12 +234,37 @@ namespace Nully
     float color[4] = { 0.3f, 0.3f, 0.3f, 1.0f };
     m_deviceContext->ClearRenderTargetView(m_renderTargetView, color);
   }
+  void NDirectx::SetFillMode(const NFillMode & a_fillMode)
+  {
+    D3D11_RASTERIZER_DESC rsDesc = {};
+    m_rasterizerState->GetDesc(&rsDesc);
+
+    switch (a_fillMode)
+    {
+    default:
+    case NFillMode::Solid:
+      rsDesc.FillMode = D3D11_FILL_SOLID;
+      break;
+    case NFillMode::Wireframe:
+      rsDesc.FillMode = D3D11_FILL_WIREFRAME;
+      break;
+    }
+
+    NSafeRelease(m_rasterizerState);
+
+    if (NDirectXFailed(m_device->CreateRasterizerState(&rsDesc, &m_rasterizerState)))
+    {
+      return;
+    }
+
+    m_deviceContext->RSSetState(m_rasterizerState);
+  }
   bool NDirectx::CreateDynamicBuffer()
   {
     NWorldViewProjection constBuffer = {};
     constBuffer.world = {};
     constBuffer.view = {};
-    constBuffer.projection = {};    
+    constBuffer.projection = {};
 
     D3D11_BUFFER_DESC bufferDesc = {};
     bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -231,7 +278,7 @@ namespace Nully
     subData.pSysMem = &bufferDesc;
     subData.SysMemPitch = 0;
     subData.SysMemSlicePitch = 0;
-    
+
     if (NDirectXFailed(m_device->CreateBuffer(&bufferDesc, &subData, &m_constantBuffer)))
     {
       return false;
@@ -282,7 +329,6 @@ namespace Nully
     {
       m_camera.Move(NCameraMoveDirection::back);
     }
-
 
     *((NWorldViewProjection*)subresource.pData) = dynamicBuffer;
 

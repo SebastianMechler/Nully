@@ -74,6 +74,9 @@
     <ClCompile Include="NObj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nully.h">
@@ -179,6 +182,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NObjDataType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NFillMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NInput.h">
+      <Filter>Header Files\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="IInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NKey.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

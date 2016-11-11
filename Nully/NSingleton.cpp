@@ -7,6 +7,7 @@ namespace Nully
     m_singleton = nullptr;
     m_shaderManager = nullptr;
     m_screen = nullptr;
+    m_input = nullptr;
   }
   void NSingleton::CreateInstance()
   {
@@ -23,7 +24,7 @@ namespace Nully
   {
     delete m_shaderManager;
     delete m_screen;
-
+    delete m_input;
     // this needs to be the LAST cause it sets the pointers to nullptr!
     delete m_singleton;
   }
@@ -36,14 +37,20 @@ namespace Nully
   {
     return *m_screen;
   }
+  IInput* NSingleton::GetInput()
+  {
+    return m_input;
+  }
   NSingleton::NSingleton()
   {
     m_singleton = this;
     m_shaderManager = new NShaderManager();
     m_screen = new NScreen();
+    m_input = new NInput();
   }
 
   NSingleton* NSingleton::m_singleton = nullptr;
   NShaderManager* NSingleton::m_shaderManager = nullptr;
   NScreen* NSingleton::m_screen = nullptr;
+  IInput* NSingleton::m_input = nullptr;
 }

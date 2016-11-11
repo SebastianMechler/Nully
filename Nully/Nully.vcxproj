@@ -161,6 +161,7 @@
     <ClCompile Include="NFile.cpp" />
     <ClCompile Include="NGameObject.cpp" />
     <ClCompile Include="NIndexBuffer.cpp" />
+    <ClCompile Include="NInput.cpp" />
     <ClCompile Include="NMaterial.cpp" />
     <ClCompile Include="NModel.cpp" />
     <ClCompile Include="NObj.cpp" />
@@ -175,9 +176,13 @@
     <ClCompile Include="NSingleton.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IInput.h" />
     <ClInclude Include="NCamera.h" />
     <ClInclude Include="NCameraMoveDirection.h" />
+    <ClInclude Include="NFillMode.h" />
     <ClInclude Include="NIndexBuffer.h" />
+    <ClInclude Include="NInput.h" />
+    <ClInclude Include="NKey.h" />
     <ClInclude Include="NModel.h" />
     <ClInclude Include="NObj.h" />
     <ClInclude Include="NObjDataType.h" />

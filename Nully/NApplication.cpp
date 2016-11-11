@@ -43,13 +43,13 @@ namespace Nully
     {
       return false;
     }
-    
+
     // load shader
     if (!NSingleton::GetShaderManager().LoadShaderPool(reinterpret_cast<ID3D11Device*>(m_graphics->GetDevice())))
     {
       return false;
     }
-    
+
 
     // load models
 
@@ -67,6 +67,17 @@ namespace Nully
       {
         TranslateMessage(&message);
         DispatchMessage(&message);
+      }
+
+      // INPUT
+      if (NSingleton::GetInput()->GetKeyDown(NKey::K_F3))
+      {
+        m_graphics->SetFillMode(NFillMode::Solid);
+      }
+
+      if (NSingleton::GetInput()->GetKeyDown(NKey::K_F4))
+      {
+        m_graphics->SetFillMode(NFillMode::Wireframe);
       }
 
       m_graphics->Clear();
@@ -90,11 +101,11 @@ namespace Nully
       break;
 
     case WM_KEYDOWN:
-      // key down...
+      NSingleton::GetInput()->SetKeyDown(static_cast<NKey>(a_wparam));
       break;
 
     case WM_KEYUP:
-      // key up...
+      NSingleton::GetInput()->SetKeyUp(static_cast<NKey>(a_wparam));
       break;
     }
 

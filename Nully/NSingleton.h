@@ -2,6 +2,7 @@
 
 #include "NShaderManager.h"
 #include "NScreen.h"
+#include "NInput.h"
 
 namespace Nully
 {
@@ -15,6 +16,7 @@ namespace Nully
 
     static NShaderManager& GetShaderManager();
     static NScreen& GetScreen();
+    static IInput* GetInput();
 
   private:
     static NSingleton* m_singleton;
@@ -22,6 +24,7 @@ namespace Nully
     // childmanagers
     static NShaderManager* m_shaderManager;
     static NScreen* m_screen;
+    static IInput* m_input;
 
     NSingleton();
   };

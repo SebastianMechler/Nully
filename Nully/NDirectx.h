@@ -22,9 +22,12 @@ namespace Nully
     void EndDraw() override;
     void* GetDevice() override;
     void Clear() override;
+    void SetFillMode(const NFillMode& a_fillMode) override;
+
     bool CreateDynamicBuffer();
     void UpdateWorldViewProjectionMatrix(const NGameObject& a_gameObject);
-
+    
+    
   private:
     IDXGIAdapter* m_adapter;
     IDXGISwapChain* m_swapchain;
@@ -38,6 +41,7 @@ namespace Nully
 
     ID3D11Buffer* m_constantBuffer;
     ID3D11BlendState* m_blendState;
+    ID3D11RasterizerState* m_rasterizerState;
 
     NCamera m_camera;
   };

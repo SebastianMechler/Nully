@@ -5,6 +5,9 @@
 // File
 #include "NFile.h"
 
+// .Obj loader
+#include "NObj.h"
+
 // Shader / Material
 #include "NShader.h"
 #include "NShaderManager.h"
