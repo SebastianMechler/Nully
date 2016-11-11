@@ -70,11 +70,6 @@ namespace Nully
     Update();
   }
 
-  DirectX::XMMATRIX& NCamera::GetMVPMatrix()
-  {
-    return m_vp;
-  }
-
   DirectX::XMMATRIX& NCamera::GetViewMatrix()
   {
     return m_view;
@@ -85,15 +80,20 @@ namespace Nully
     return m_projection;
   }
 
-  void NCamera::Update()
+  void NCamera::Update(float a_rotationY)
   {
-    m_vp = DirectX::XMMatrixTranspose(
-      DirectX::XMMatrixLookAtLH(m_position, m_focus, m_up)  // camera
-      * DirectX::XMMatrixPerspectiveFovLH(3.1415f * 0.25f, m_screenSize.width / m_screenSize.height, 0.01f, 100.0f) // perspective
-      );
-
     m_view = DirectX::XMMatrixTranspose(DirectX::XMMatrixLookAtLH(m_position, m_focus, m_up));
-    m_projection = DirectX::XMMatrixTranspose(DirectX::XMMatrixPerspectiveFovLH(3.1415f * 0.25f, m_screenSize.width / m_screenSize.height, 0.01f, 100.0f));
+    m_projection = DirectX::XMMatrixTranspose(DirectX::XMMatrixPerspectiveFovLH(3.1415f * 0.25f, (float)m_screenSize.width / (float)m_screenSize.height, 0.01f, 100.0f));
+    //static float rot = 0.0f;
+    //rot += a_rotationY * 0.1f;//0.0015f;
+    //m_view = DirectX::XMMatrixTranspose(DirectX::XMMatrixLookAtLH(m_position, m_focus, m_up) * DirectX::XMMatrixRotationZ(rot));
+    //m_projection = DirectX::XMMatrixTranspose(DirectX::XMMatrixPerspectiveFovLH(3.1415f * 0.25f, (float)m_screenSize.width / (float)m_screenSize.height, 0.01f, 100.0f));
+
+  }
+
+  void NCamera::Rotate(float x)
+  {
+    Update(x);
   }
 
 }

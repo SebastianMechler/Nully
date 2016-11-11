@@ -13,12 +13,12 @@ namespace Nully
   public:
     NCamera(float speed);
     void Move(NCameraMoveDirection a_direction);
-    DirectX::XMMATRIX& GetMVPMatrix();
 
     DirectX::XMMATRIX& GetViewMatrix();
     DirectX::XMMATRIX& GetProjectionMatrix();
 
-    void Update();
+    void Update(float a_rotationY = 0.0f);
+    void Rotate(float x);
 
   private:
     NCamera(const NCamera&); // no copy constructor
@@ -26,7 +26,7 @@ namespace Nully
     DirectX::XMVECTOR m_position; // camera position
     DirectX::XMVECTOR m_focus; // camera look to
     DirectX::XMVECTOR m_up; // camera up vector
-    DirectX::XMMATRIX m_vp; // view-projection matrix
+    //DirectX::XMMATRIX m_vp; // view-projection matrix
     DirectX::XMMATRIX m_view;
     DirectX::XMMATRIX m_projection;
 

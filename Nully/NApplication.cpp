@@ -100,12 +100,25 @@ namespace Nully
       NApplication::m_quit = true;
       break;
 
+    case WM_MOUSEMOVE:
+      NSingleton::GetInput()->SetMousePositon(GET_X_LPARAM(a_lparam), GET_Y_LPARAM(a_lparam));
+      break;
+
     case WM_KEYDOWN:
       NSingleton::GetInput()->SetKeyDown(static_cast<NKey>(a_wparam));
       break;
 
     case WM_KEYUP:
       NSingleton::GetInput()->SetKeyUp(static_cast<NKey>(a_wparam));
+      break;
+
+    case WM_LBUTTONDOWN:
+    case WM_RBUTTONDOWN:
+    case WM_MBUTTONDOWN:
+    case WM_LBUTTONUP:
+    case WM_RBUTTONUP:
+    case WM_MBUTTONUP:
+      NSingleton::GetInput()->SetMouseButtonState(a_message);
       break;
     }
 

@@ -203,21 +203,14 @@ namespace Nully
     //m_deviceContext->Draw(go.m_model.m_vertexBuffer.GetVertexCount(), 0);
     m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-    go.m_transform.m_position = NVector3(0.0f, 0.0f, 0.0f);
+    go.m_transform.m_position = NVector3(0.0f, 2.5f, 0.0f);
     UpdateWorldViewProjectionMatrix(go);
-m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-go.m_transform.m_position = NVector3(0.0f, 2.5f, 0.0f);
-UpdateWorldViewProjectionMatrix(go);
-m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+    go.m_transform.m_position = NVector3(3.0f, 2.5f, 0.0f);
+    UpdateWorldViewProjectionMatrix(go);
+    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-go.m_transform.m_position = NVector3(3.0f, 2.5f, 0.0f);
-UpdateWorldViewProjectionMatrix(go);
-m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
-
-go.m_transform.m_position = NVector3(2.0f, 2.5f, 2.0f);
-UpdateWorldViewProjectionMatrix(go);
-m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
   }
   void NDirectx::EndDraw()
   {
@@ -302,33 +295,56 @@ m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
     NWorldViewProjection dynamicBuffer;
     dynamicBuffer.view = m_camera.GetViewMatrix();
     dynamicBuffer.projection = m_camera.GetProjectionMatrix();
-    dynamicBuffer.world = a_gameObject.GetWorldMatrix();
 
-    // setup world matrix
-    if (GetAsyncKeyState(VK_UP))
+    // rotate the world yeeehaaa
+    static float x = 0;
+    static float rot = 0;
+    if (NSingleton::GetInput()->GetMouseButtonDown(NMouseButton::Left))
+    {
+      rot += x * 0.0001f;
+    }
+
+    x = NSingleton::GetInput()->GetMouseX();
+
+    dynamicBuffer.world = a_gameObject.GetWorldMatrix() * DirectX::XMMatrixRotationY(rot * 0.01f);
+    
+    if (NSingleton::GetInput()->GetKeyDown(NKey::K_W))
     {
       m_camera.Move(NCameraMoveDirection::up);
     }
-    if (GetAsyncKeyState(VK_DOWN))
+    if (NSingleton::GetInput()->GetKeyDown(NKey::K_S))
     {
       m_camera.Move(NCameraMoveDirection::down);
     }
-    if (GetAsyncKeyState(VK_LEFT))
+    if (NSingleton::GetInput()->GetKeyDown(NKey::K_A))
     {
       m_camera.Move(NCameraMoveDirection::left);
     }
-    if (GetAsyncKeyState(VK_RIGHT))
+    if (NSingleton::GetInput()->GetKeyDown(NKey::K_D))
     {
       m_camera.Move(NCameraMoveDirection::right);
     }
-    if (GetAsyncKeyState(VK_F1))
+    if (NSingleton::GetInput()->GetKeyDown(NKey::K_F1))
     {
       m_camera.Move(NCameraMoveDirection::forward);
     }
-    if (GetAsyncKeyState(VK_F2))
+    if (NSingleton::GetInput()->GetKeyDown(NKey::K_F2))
     {
       m_camera.Move(NCameraMoveDirection::back);
     }
+
+    // camera rotation through mouse
+   /* static float x = 0;
+
+    if (NSingleton::GetInput()->GetMouseButtonDown(NMouseButton::Left))
+    {
+      m_camera.Rotate(NSingleton::GetInput()->GetMouseX() - x);
+    }
+
+    x = NSingleton::GetInput()->GetMouseX();*/
+
+    
+
 
     *((NWorldViewProjection*)subresource.pData) = dynamicBuffer;
 

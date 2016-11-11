@@ -15,7 +15,7 @@ namespace Nully
     K_7 = 0x37,
     K_8 = 0x38,
     K_9 = 0x39,
-
+    
     // Characters A - Z 
     K_A = 0x41,
     K_B = 0x42,

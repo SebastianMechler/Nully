@@ -1,6 +1,6 @@
 #include "Nully.h"
 
-#include "NObj.h"
+
 
 using namespace Nully;
 
