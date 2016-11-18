@@ -116,7 +116,7 @@ namespace Nully
     //D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP
       //D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP
     // Set topology
-    m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+    m_deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     // set viewport
     D3D11_VIEWPORT viewPort = { 0 };
@@ -144,7 +144,7 @@ namespace Nully
     }
 
 
-    m_deviceContext->OMSetBlendState(m_blendState, nullptr, 0xffffffff);
+    //m_deviceContext->OMSetBlendState(m_blendState, nullptr, 0xffffffff);
 
 
     CreateDynamicBuffer();
@@ -154,15 +154,15 @@ namespace Nully
     //
     D3D11_RASTERIZER_DESC rsDesc = {};
     rsDesc.FillMode = D3D11_FILL_SOLID;
-    rsDesc.CullMode = D3D11_CULL_NONE;
-    rsDesc.FrontCounterClockwise = TRUE;
+    rsDesc.CullMode = D3D11_CULL_NONE;//D3D11_CULL_BACK;
+    rsDesc.FrontCounterClockwise = false;
     rsDesc.DepthBias = 0;
     rsDesc.DepthBiasClamp = 0;
     rsDesc.SlopeScaledDepthBias = 0.0f;
-    rsDesc.DepthClipEnable = TRUE;
-    rsDesc.ScissorEnable = FALSE;
-    rsDesc.AntialiasedLineEnable = FALSE;
-    rsDesc.MultisampleEnable = FALSE;
+    rsDesc.DepthClipEnable = false;
+    rsDesc.ScissorEnable = false;
+    rsDesc.AntialiasedLineEnable = false;
+    rsDesc.MultisampleEnable = false;
 
     if (NDirectXFailed(m_device->CreateRasterizerState(&rsDesc, &m_rasterizerState)))
     {
@@ -203,13 +203,13 @@ namespace Nully
     //m_deviceContext->Draw(go.m_model.m_vertexBuffer.GetVertexCount(), 0);
     m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-    go.m_transform.m_position = NVector3(0.0f, 2.5f, 0.0f);
-    UpdateWorldViewProjectionMatrix(go);
-    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+    //go.m_transform.m_position = NVector3(0.0f, 2.5f, 0.0f);
+    //UpdateWorldViewProjectionMatrix(go);
+    //m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
-    go.m_transform.m_position = NVector3(3.0f, 2.5f, 0.0f);
-    UpdateWorldViewProjectionMatrix(go);
-    m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
+    //go.m_transform.m_position = NVector3(3.0f, 2.5f, 0.0f);
+    //UpdateWorldViewProjectionMatrix(go);
+    //m_deviceContext->DrawIndexed(go.m_model.m_indexBuffer.GetCount(), 0, 0);
 
   }
   void NDirectx::EndDraw()
@@ -301,7 +301,7 @@ namespace Nully
     static float rot = 0;
     if (NSingleton::GetInput()->GetMouseButtonDown(NMouseButton::Left))
     {
-      rot += x * 0.0001f;
+      rot += x * 0.001f;
     }
 
     x = NSingleton::GetInput()->GetMouseX();

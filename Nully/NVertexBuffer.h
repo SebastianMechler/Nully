@@ -2,7 +2,8 @@
 
 #include <D3D11.h>
 
-#include "NVector3.h"
+//#include "NVector3.h"
+#include "NVector4.h"
 #include "NDirectxHelper.h"
 #include "NIntern.h"
 
@@ -10,8 +11,8 @@ namespace Nully
 {
   struct NVertexDefault
   {
-    NVector3 position;
-    NVector3 color;
+    NVector4 position;
+    NVector4 color;
   };
 
   class NVertexBuffer

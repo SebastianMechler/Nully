@@ -6,13 +6,13 @@
 
 #include "NObjFace.h"
 #include "NObjDataType.h"
-#include "NVector3.h"
+#include "NVector4.h"
 #include "NString.h"
 #include "NFile.h"
 
 namespace Nully
 {
-  typedef std::vector<NVector3> NVertex;
+  typedef std::vector<NVector4> NVertex;
   typedef std::vector<NFace> NFaces;
   
   class NObj
@@ -29,7 +29,7 @@ namespace Nully
 
   private:
     NObjDataType GetObjType(char* buffer);
-    void ToNVector3(char* a_buffer, NObjDataType a_type, nuint32 a_lineLength);
+    void ToNVector4(char* a_buffer, NObjDataType a_type, nuint32 a_lineLength);
     void ToName(char* a_buffer, nuint32 a_lineLength);
     void ToFace(char* a_buffer, nuint32 a_lineLength);
 

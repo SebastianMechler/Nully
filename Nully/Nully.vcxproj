@@ -171,6 +171,7 @@
     <ClCompile Include="NTransform.cpp" />
     <ClCompile Include="NVector2.cpp" />
     <ClCompile Include="NVector3.cpp" />
+    <ClCompile Include="NVector4.cpp" />
     <ClCompile Include="NVertexBuffer.cpp" />
     <ClCompile Include="NWindow.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="NTypes.h" />
     <ClInclude Include="NVector2.h" />
     <ClInclude Include="NVector3.h" />
+    <ClInclude Include="NVector4.h" />
     <ClInclude Include="NVertexBuffer.h" />
     <ClInclude Include="NWindow.h" />
     <ClInclude Include="NWindowAlignment.h" />

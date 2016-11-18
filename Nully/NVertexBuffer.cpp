@@ -19,13 +19,13 @@ namespace Nully
       return false;
     }
 
-    m_vertexCount = a_vertexCount;//(sizeof(NVertexDefault) * a_vertexCount) / sizeof(NVertexDefault);
+    m_vertexCount = a_vertexCount;
     m_stride = sizeof(NVertexDefault);
 
     // Fill in a buffer description.
     D3D11_BUFFER_DESC bufferDesc;
     bufferDesc.Usage = D3D11_USAGE_DEFAULT;
-    bufferDesc.ByteWidth = m_stride * m_vertexCount;
+    bufferDesc.ByteWidth = (m_stride * m_vertexCount + 15) / 16 * 16;;
     bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
     bufferDesc.CPUAccessFlags = 0;
     bufferDesc.MiscFlags = 0;

@@ -53,7 +53,7 @@ namespace Nully
       {
       case NObjDataType::Vertex:
       case NObjDataType::Normal:
-        ToNVector3(workBuffer, type, lineLength);
+        ToNVector4(workBuffer, type, lineLength);
         break;
       case NObjDataType::Name:
         ToName(workBuffer, lineLength);
@@ -126,9 +126,9 @@ namespace Nully
       return NObjDataType::Unused;
     }
   }
-  void NObj::ToNVector3(char* a_buffer, NObjDataType a_type, nuint32 a_lineLength)
+  void NObj::ToNVector4(char* a_buffer, NObjDataType a_type, nuint32 a_lineLength)
   {
-    NVector3 tmp;
+    NVector4 tmp;
 
     // remove \n and insert space, so sscanf_s can work with it
     *(a_buffer + a_lineLength -1) = ' '; // -1 to come to the '\n'
